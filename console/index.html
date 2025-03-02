@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>cool</title>
+  </head>
+  <body>
+    <div style="height: 100px"></div>
+    <div style="height: 100px"></div>
+    <div style="height: 100px"></div>
+    <div style="height: 100px"></div>
+    <div style="height: 100px"></div>
+    <div style="height: 100px"></div>
+    <div style="height: 100px"></div>
+    <div style="height: 100px"></div>
+    <div style="height: 100px"></div>
+    <script>
+      const div = document.querySelectorAll("div");
+      const colors = ["lime", "magenta", "aqua", "skyblue"];
+      let index = 0;
+      setInterval(() => {
+        div.forEach((d) => {
+          d.style.backgroundColor = colors[index % 4];
+          index++;
+        });
+      }, 500);
+    </script>
+  </body>
+</html>
