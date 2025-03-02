@@ -1,45 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>numbers</title>
+    <style>
+      @keyframes lightToDark {
+        0% {
+          color: rgba(0, 0, 0, 0.2);
+        }
+        25% {
+          color: rgba(0, 0, 0, 0.4);
+        }
+        50% {
+          color: rgba(0, 0, 0, 0.6);
+        }
+        75% {
+          color: rgba(0, 0, 0, 0.8);
+        }
+        100% {
+          color: rgba(0, 0, 0, 0.8);
+        }
+      }
+
+      @keyframes darkToLight {
+        0% {
+          color: rgba(0, 0, 0, 0.8);
+        }
+        25% {
+          color: rgba(0, 0, 0, 0.6);
+        }
+        50% {
+          color: rgba(0, 0, 0, 0.4);
+        }
+        75% {
+          color: rgba(0, 0, 0, 0.2);
+        }
+        100% {
+          color: rgba(0, 0, 0, 0.1);
+        }
+      }
+    </style>
   </head>
   <body>
     <script>
       const box = document.querySelector("body");
-      box.style.cssText = `background-color:ghostwhite; 
+      box.style.cssText = `background-color:ghostwhite;
         margin:60px auto;
         display:flex;
-        flex-wrap:wrap; 
+        flex-wrap:wrap;
         overflow:hidden`;
 
-      const colors = [
-        "rgba(0,0,0,0.8)",
-        "rgba(0,0,0,0.7)",
-        "rgba(0,0,0,0.6)",
-        "rgba(0,0,0,0.5)",
-        "rgba(0,0,0,0.4)",
-        "rgba(0,0,0,0.3)",
-        "rgba(0,0,0,0.2)",
-        "rgba(0,0,0,0.1)",
-      ];
+      const randomBetween = (from, to) => {
+        return from + Math.floor(Math.random() * (to - from));
+      };
+
+      const randomColor = () => {
+        const colors = ["rgba(0,0,0,0.8)", "rgba(0,0,0,0.2)"];
+        return colors[randomBetween(0, colors.length)];
+      };
 
       for (let i = 0; i < 100; i++) {
         const newEle = document.createElement("div");
-
+        const color = randomColor();
         newEle.style.cssText = `
-          height:${(Math.random() * 50) >> 1}%; 
+          height:${randomBetween(4, 10)}%;
           aspect-ratio:1;
           display:flex;
           margin:${Math.random() * 40 + 10}px;
           justify-content:center;
           align-items:center;
-          font-size:${Math.random() * 10}rem;
-          color:${colors[Math.floor((Math.random() * 100) % 8)]};
-          transform:rotate(${Math.random() * 100 - 50}deg)       
+          font-size:${randomBetween(4, 10)}rem;
+          color:${color};
+          transform:rotate(${randomBetween(-50, 50)}deg)
           `;
-        newEle.textContent = `${(Math.random() * 20) >> 1}`;
+
+        newEle.textContent = `${randomBetween(0, 10)}`;
+
+        newEle.style.animation =
+          color === "rgba(0,0,0,0.8)"
+            ? "2s darkToLight 1s linear infinite alternate"
+            : "2s lightToDark 1s linear infinite alternate";
 
         box.append(newEle);
       }
