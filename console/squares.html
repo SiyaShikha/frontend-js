@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>squares</title>
+  </head>
+  <body>
+    <script>
+      const box = document.querySelector("body");
+      box.style.cssText = `background-color:ghostwhite; 
+        display:flex;
+        flex-wrap:wrap; 
+        overflow:hidden`;
+
+      const colors = [
+        "rgba(100,0,0,0.6)",
+        "rgba(100,0,0,0.5)",
+        "rgba(100,0,0,0.4)",
+        "rgba(100,0,0,0.3)",
+        "rgba(100,0,0,0.2)",
+        "rgba(100,0,0,0.1)",
+      ];
+
+      for (let i = 0; i < 200; i++) {
+        const newEle = document.createElement("div");
+        newEle.style.cssText = `
+          height:${(Math.random() * 50) >> 1}%; 
+          aspect-ratio:1;
+          border:2px solid ${colors[Math.floor((Math.random() * 100) % 6)]};
+          position:absolute;
+          top: ${Math.random() * 100}%;
+          left: ${Math.random() * 100}%;          
+          `;
+        box.append(newEle);
+      }
+    </script>
+  </body>
+</html>
