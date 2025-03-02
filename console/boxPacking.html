@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #box {
+        width: 800px;
+        height: 800px;
+        position: relative;
+        overflow: hidden;
+        background-color: #d5c7a3;
+      }
+    </style>
+    <title>move</title>
+  </head>
+
+  <body>
+    <div id="box"></div>
+
+    <script>
+      const box = document.querySelector("#box");
+
+      const randomBetween = (from, to) => {
+        return from + Math.floor(Math.random() * (to - from));
+      };
+
+      const randomColor = () => {
+        const hue = 40;
+        const color = `hsl(${hue},
+        ${randomBetween(20, 50)}%,
+        ${randomBetween(20, 50)}%)`;
+        console.log(color);
+        return color;
+      };
+
+      const overlapping = (occupied, space) => {
+        return occupied.some((os) => {
+          return !(
+            space.top >= os.top + os.dimension ||
+            space.left >= os.left + os.dimension ||
+            space.top + space.dimension <= os.top ||
+            space.left + space.dimension <= os.left
+          );
+        });
+      };
+
+      const randomSquare = (occupied) => {
+        const dimension = randomBetween(4, 14);
+        const left = randomBetween(1, 100 - dimension);
+        const top = randomBetween(1, 100 - dimension);
+        space = { left, top, dimension };
+
+        if (!overlapping(occupied, space)) {
+          const newEle = document.createElement("div");
+          newEle.style.cssText = `
+          height:${dimension}%;
+          aspect-ratio:1;
+          background-color:${randomColor()};
+          position:absolute;
+          top: ${left}%;
+          left: ${top}%;
+          `;
+          occupied.push(space);
+          return newEle;
+        }
+        return randomSquare();
+      };
+
+      const main = () => {
+        const occupied = [];
+
+        setInterval(() => {
+          box.append(randomSquare(occupied));
+        }, 100);
+      };
+
+      main();
+    </script>
+  </body>
+</html>
