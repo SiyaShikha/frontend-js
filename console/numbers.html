@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>numbers</title>
+  </head>
+  <body>
+    <script>
+      const box = document.querySelector("body");
+      box.style.cssText = `background-color:ghostwhite; 
+        margin:60px auto;
+        display:flex;
+        flex-wrap:wrap; 
+        overflow:hidden`;
+
+      const colors = [
+        "rgba(0,0,0,0.8)",
+        "rgba(0,0,0,0.7)",
+        "rgba(0,0,0,0.6)",
+        "rgba(0,0,0,0.5)",
+        "rgba(0,0,0,0.4)",
+        "rgba(0,0,0,0.3)",
+        "rgba(0,0,0,0.2)",
+        "rgba(0,0,0,0.1)",
+      ];
+
+      for (let i = 0; i < 100; i++) {
+        const newEle = document.createElement("div");
+
+        newEle.style.cssText = `
+          height:${(Math.random() * 50) >> 1}%; 
+          aspect-ratio:1;
+          display:flex;
+          margin:${Math.random() * 40 + 10}px;
+          justify-content:center;
+          align-items:center;
+          font-size:${Math.random() * 10}rem;
+          color:${colors[Math.floor((Math.random() * 100) % 8)]};
+          transform:rotate(${Math.random() * 100 - 50}deg)       
+          `;
+        newEle.textContent = `${(Math.random() * 20) >> 1}`;
+
+        box.append(newEle);
+      }
+    </script>
+  </body>
+</html>
