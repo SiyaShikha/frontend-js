@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>car game</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #box {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+      }
+      .road {
+        height: 100%;
+        width: 20%;
+        border: 2px solid grey;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+      .playerCar {
+        height: 30%;
+        width: 100%;
+        background-image: url("images/player.jpg");
+        background-size: cover;
+        position: absolute;
+        bottom: 0;
+        /* animation: playerMove ease-in-out 1s infinite; */
+      }
+      .obstacleCar {
+        height: 30%;
+        width: 100%;
+        background-image: url("images/obstacle.jpg");
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        /* animation: rotateOnce 0.1s ease 1 forwards; */
+        animation: moveObstacle ease-in-out 1s infinite;
+      }
+
+      @keyframes moveObstacle {
+        100% {
+          transform: translateY(880px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div class="road"></div>
+      <div class="road"></div>
+      <div class="road"></div>
+      <div class="road"></div>
+      <div class="road"></div>
+    </div>
+    <script>
+      const road = document.getElementsByClassName("road");
+
+      const createPlayer = () => {
+        const player = document.createElement("div");
+        player.classList.add("playerCar");
+        let lane = 0;
+        road[lane].append(player);
+
+        const movePlayer = (event) => {
+          if (event.key === "ArrowRight") {
+            lane++;
+            road[lane].append(player);
+            console.log("You pressed", event.key);
+          }
+          if (event.key === "ArrowLeft") {
+            lane--;
+            road[lane].append(player);
+            console.log("You pressed", event.key);
+          }
+        };
+
+        document.addEventListener("keydown", movePlayer);
+      };
+
+      const randomBetween = (from, to) => {
+        return from + Math.floor(Math.random() * (to - from));
+      };
+
+      const createObstacle = () => {
+        const obstacle = document.createElement("div");
+        obstacle.classList.add("obstacleCar");
+        const lane = randomBetween(0, 5);
+        road[lane].append(obstacle);
+      };
+
+      const main = () => {
+        createPlayer();
+        createObstacle();
+      };
+
+      main();
+    </script>
+  </body>
+</html>
