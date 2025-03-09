@@ -52,33 +52,47 @@
         });
       };
 
-      const randomSquare = (occupied) => {
-        const dimension = randomBetween(6, 14);
-        const left = randomBetween(1, 100 - dimension);
-        const top = randomBetween(1, 100 - dimension);
-        space = { left, top, dimension };
+      const randomSquare = (occupied, lowerLimit, upperLimit) => {
+        let overlappingSquare = true;
+        let space = null;
 
-        if (!overlapping(occupied, space)) {
-          const newEle = document.createElement("div");
-          newEle.style.cssText = `
-          height:${dimension}%;
+        while (overlappingSquare) {
+          const dimension = randomBetween(lowerLimit, upperLimit);
+          const left = randomBetween(1, 100 - dimension);
+          const top = randomBetween(1, 100 - dimension);
+          space = { left, top, dimension };
+
+          if (!overlapping(occupied, space)) {
+            overlappingSquare = false;
+            occupied.push(space);
+          }
+        }
+
+        const newEle = document.createElement("div");
+        newEle.style.cssText = `
+          height:${space.dimension}%;
           aspect-ratio:1;
           background-color:${randomColor()};
           position:absolute;
-          top: ${left}%;
-          left: ${top}%;
-          `;
-          occupied.push(space);
-          return newEle;
-        }
-        return randomSquare();
+          top: ${space.top}%;
+          left: ${space.left}%;
+        `;
+        return newEle;
       };
 
       const main = () => {
         const occupied = [];
+        let count = 0;
 
-        setInterval(() => {
-          box.append(randomSquare(occupied));
+        const setTimeOutId = setInterval(() => {
+          if (count >= 200) {
+            clearInterval(setTimeOutId);
+          }
+          if (count <= 50) {
+            box.append(randomSquare(occupied, 6, 14));
+          }
+          box.append(randomSquare(occupied, 4, 10));
+          count++;
         }, 20);
       };
 
