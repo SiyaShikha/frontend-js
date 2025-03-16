@@ -1,0 +1,39 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#road {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.lane {
+  height: 100%;
+  width: 20%;
+  border: 2px solid grey;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.playerCar {
+  height: 10%;
+  width: 30%;
+  background-color: yellow;
+  position: absolute;
+  bottom: 0;
+}
+
+.obstacleCar {
+  height: 10%;
+  width: 30%;
+  background-color: red;
+  position: absolute;
+  top: 0;
+}
